@@ -17,7 +17,9 @@
         <table class="table table-bordered table-striped mt-3">
             <thead>
                 <th>Doctor</th>
+                <th>Doctor Picture</th>
                 <th>Patient</th>
+                <th>Patient Picture</th>
                 <th>Appointment Date</th>
                 <th>Show</th>
                 <th>Edit</th>
@@ -27,7 +29,9 @@
                 @forelse ($data as $item)
                     <tr>
                         <td>{{ $item->appointmentdoctor->name }}</td>
+                        <td><img src="{{asset('storage/' .$item->doctor_picture)}}" style="width:60px;border-radius:8px;"></td>
                         <td>{{ $item->appointmentpatient->name }}</td>
+                        <td><img src="{{asset('storage/' . $item->patient_picture)}}" style="width:60px;border-radius:8px;"></td>
                         <td>{{ $item->appointmentdate }}</td>
                         <td><a href="" class="btn btn-primary">Show</a></td>
                         <td><a href="" class="btn btn-success">Edit</a></td>
@@ -35,7 +39,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td class="text-center" colspan="6">No Record Found</td>
+                        <td class="text-center" colspan="8">No Record Found</td>
                     </tr>
                 @endforelse
 

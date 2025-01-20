@@ -37,16 +37,26 @@ class AppointmentController extends Controller
         //  dd($request);
         $request->validate([
             'doctor_id' => 'required',
+            'doctor_picture' => 'required|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'patient_id' => 'required',
+            'patient_picture' => 'required|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'date' => 'required|date|after_or_equal:today',
         ],[
             'doctor_id.required' => 'Please select a Doctor!',
+            'doctor_picture.required' => 'Please upload a Doctor Picture!',
             'patient_id.required' => 'Please select a Patient!',
+            'patient_picture.required' => 'Please upload a Patient Picture!',
             'date.after_or_equal' => 'The appointment date must be today or a future date.',
         ]);
+
+        // dd($request);
+        $filed = $request->file('doctor_picture')->store('images','public');
+        $filep = $request->file('patient_picture')->store('images','public');
          $store = Appointment::insert([
             'doctor_id' => $request->doctor_id,
+            'doctor_picture' => $filed,
             'patient_id' => $request->patient_id,
+            'patient_picture' => $filep,
             'appointmentdate' => $request->date,
         ]);
         return redirect()->route('appointment.index');
@@ -80,7 +90,7 @@ class AppointmentController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id) {
-        $delete = Appointment::find($id)->delete();
+    $delete = Appointment::find($id)->delete();
         return redirect()->route('appointment.index');
     }
 }

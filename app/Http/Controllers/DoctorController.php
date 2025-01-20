@@ -33,12 +33,16 @@ class DoctorController extends Controller
         // dd($request);
         $request->validate([
             'name' => 'required|min:6',
-            'speciality' => 'required'
+            'speciality' => 'required',
+            'file' => 'required|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
+        $file = $request->file('file')->store('images','public');
         $store = Doctor::insert([
             'name' => $request->name,
             'speciality' => $request->speciality,
+            'file' => $file,
         ]);
+        // dd($request);
         return redirect()->route('doctor.index');
     }
 

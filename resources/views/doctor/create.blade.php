@@ -11,15 +11,18 @@
     <div class="container">
         <h1 class="text-center mt-4"><i>Hospital Management System (HMS)</i></h1>
         <h2 class="text-center mt-3"><i>Create a Doctor!</i></h2>
-        <form action="{{route('doctor.store')}}" method="post">
+        <form action="{{route('doctor.store')}}" method="post" enctype="multipart/form-data">
             @csrf
             <div>
-                <input type="text" name="name" class="form-control w-25 mt-3 @error('name') is-invalid @enderror" placeholder="Doctor Name">
+                <input type="text" name="name" value="{{old('name')}}" class="form-control w-25 mt-3 @error('name') is-invalid @enderror" placeholder="Doctor Name">
                 <span class="text-danger">@error('name') {{$message}}  @enderror</span>
             </div>
             <div>
-                <input type="text" name="speciality" class="form-control w-25 mt-3 @error('speciality') is-invalid @enderror" placeholder="Doctor Speciality">
+                <input type="text" name="speciality" value="{{old('speciality')}}" class="form-control w-25 mt-3 @error('speciality') is-invalid @enderror" placeholder="Doctor Speciality">
                 <span class="text-danger">@error('speciality') {{$message}}  @enderror</span>
+            </div>
+            <div>
+                <input type="file" name="file" value="{{old('file')}}" class="form-control w-25 mt-3 @error('file') is-invalid @enderror" placeholder="Doctor Image">
             </div>
             <button type="submit" class="btn btn-success mt-3">Create</button>
         </form>

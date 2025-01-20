@@ -32,11 +32,15 @@ class PatientController extends Controller
         // dd($request);
         $request->validate([
             'name' => 'required|min:6',
-            'age' => 'required|integer|min:12'
+            'age' => 'required|integer|min:12',
+            'file' => 'required|mimes:jpg,png,jpeg,gif,svg,:2048'
         ]);
+        $file = $request->file('file')->store('images','public');
+        // dd($request);
         $store = Patient::insert([
             'name' => $request->name,
             'age' => $request->age,
+            'file' => $file,
         ]);
         return redirect()->route('patient.index');
     }

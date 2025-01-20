@@ -16,6 +16,7 @@
             <thead>
                 <th>Patient Name</th>
                 <th>Age</th>
+                <th>Patient Profile</th>
                 <th>Delete</th>
             </thead>
             <tbody>
@@ -23,11 +24,12 @@
                     <tr>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->age }}</td>
-                        <td><a href="{{route('patient.destroy',$item->id)}}" class="btn btn-danger">Delete</a></td>
+                        <td><img src="{{asset('storage/' . $item->file)}}" style="width:60px;border-radius:8px;"></td>
+                        <td><a href="{{route('patient.destroy' , $item->id)}}" class="btn btn-danger">Delete</a></td>
                     </tr>
                 @empty
                     <tr>
-                        <td class="text-center" colspan="3">No Record Found</td>
+                        <td class="text-center" colspan="4">No Record Found</td>
                     </tr>
                 @endforelse
 
